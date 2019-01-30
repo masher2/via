@@ -1,5 +1,6 @@
 #!/bin/bash
 
+TERMINAL='kitty -1 --listen-on unix:/tmp/kitty'
 exec &> /dev/null
 
 while read arg; do
@@ -15,7 +16,7 @@ while read arg; do
 			$TERMINAL $EDITOR "$arg" &
 			;;
 		*.pdf | *.epub)
-			mupdf "$arg" &
+			evince "$arg" &
 			;;
 		*.mp3)
 			$TERMINAL mpg123 -opulse "$arg" &
@@ -28,7 +29,7 @@ while read arg; do
 			mimetype=$(file -Lb --mime-type "$arg")
 			case "$mimetype" in
 				text/html)
-					$BROWSER "$arg" &
+					$TERMINAL $EDITOR "$arg" &
 					;;
 				text/* | inode/x-empty | message/rfc822)
 					$TERMINAL $EDITOR "$arg" &
@@ -39,7 +40,7 @@ while read arg; do
 					cd -
 					;;
 				image/*)
-					sxiv "$arg" &
+					feh "$arg" &
 					;;
 				*)
 					exit 1
