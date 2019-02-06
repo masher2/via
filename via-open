@@ -24,6 +24,9 @@ while read arg; do
 		*.od[tsp]|*.doc|*.docx|*.ppt|*.pptx|*.xls|*.xlsx)
 			libreoffice "$arg" &
 			;;
+        *.csv)
+            scim_or_calc "$arg" &
+            ;;
 		*)
 			# then try matching by mimetype
 			mimetype=$(file -Lb --mime-type "$arg")
