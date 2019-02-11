@@ -16,17 +16,14 @@ while read arg; do
 			$TERMINAL $EDITOR "$arg" &
 			;;
 		*.pdf | *.epub)
-			evince "$arg" &
+			epdfview "$arg" &
 			;;
 		*.mp3)
 			$TERMINAL mpg123 -opulse "$arg" &
 			;;
-		*.od[tsp]|*.doc|*.docx|*.ppt|*.pptx|*.xls|*.xlsx)
+		*.od[tsp]|*.doc|*.docx|*.ppt|*.pptx|*.xls|*.xlsx|*.csv)
 			libreoffice "$arg" &
 			;;
-        *.csv)
-            scim_or_calc "$arg" &
-            ;;
 		*)
 			# then try matching by mimetype
 			mimetype=$(file -Lb --mime-type "$arg")
