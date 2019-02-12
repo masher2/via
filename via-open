@@ -16,7 +16,7 @@ while read arg; do
 			$TERMINAL $EDITOR "$arg" &
 			;;
 		*.pdf | *.epub)
-			epdfview "$arg" &
+			zathura "$arg" &
 			;;
 		*.mp3)
 			$TERMINAL mpg123 -opulse "$arg" &
