@@ -2,4 +2,4 @@
 
 cat "$HOME/.config/via/shortcuts"
 cat "$HOME/.config/via/websites"
-find "$HOME" -mindepth 1 \( -name ".*" -o -path "$HOME/bin" -o -path "$HOME/src" -o -path "$HOME/snap" -o -path "$HOME/R" \) -prune -o -print | sort
+find "$HOME" -mindepth 1 \( -name ".*" -o -path "$HOME/bin" -o -path "$HOME/Desktop" -o -path "$HOME/src" -o -path "$HOME/snap" -o -path "$HOME/R" \) -prune -o -print | sort
