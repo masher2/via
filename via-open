@@ -19,10 +19,15 @@ while read arg; do
             zathura "$arg" &
             ;;
         *.mp3)
-            $TERMINAL mpg123 -opulse "$arg" &
+            mpc insert "file://$arg"
+            mpc next
+            pkill -RTMIN+11 i3blocks
             ;;
         *.od[tsp]|*.doc|*.docx|*.ppt|*.pptx|*.xls|*.xlsx|*.csv)
             libreoffice "$arg" &
+            ;;
+        *.dat|*.csv|*.tsv)
+            localc "$arg" &
             ;;
         *)
             # then try matching by mimetype
