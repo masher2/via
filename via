@@ -2,4 +2,11 @@
 
 PATH="$HOME/.config/via:$PATH"
 
+while getopts 'm' opt; do
+    case "${opt}" in
+        m) find "$HOME/Music" -name "*.mp3" -print | via-menu | via-open 
+            exit 1;;
+    esac
+done
+
 via-feed | via-menu | via-open
