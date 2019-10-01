@@ -1,5 +1,48 @@
 #!/bin/bash
 
-cat "$HOME/.config/via/shortcuts"
-cat "$HOME/.config/via/websites"
-find "$HOME" -mindepth 1 \( -name ".*" -o -path "$HOME/bin" -o -path "$HOME/Desktop" -o -path "$HOME/Music" -o -path "$HOME/MEGA" -o -path "$HOME/R" -o -path "$HOME/snap" \) -prune -o -print | sort
+MUSIC_DIR="$HOME/Music"
+
+files() {
+    cat "$HOME/.config/via/shortcuts"
+    cat "$HOME/.config/via/websites"
+    find "$HOME" -mindepth 1 \( \
+        -name ".*" -o\
+        -path "$HOME/bin" -o\
+        -path "$HOME/Desktop" -o\
+        -path "$HOME/Documents/para clasificar" -o\
+        -path "$HOME/Documents/r4 files" -o\
+        -path "$HOME/Dropbox/Jesus/Fondo/conspos_files" -o\
+        -path "$HOME/Dropbox/Jesus/Fondo/Transactions" -o\
+        -path "$HOME/Music" -o\
+        -path "$HOME/MEGA" -o\
+        -path "$HOME/R" -o\
+        -path "$HOME/snap" -o\
+        -path "$HOME/Work" \
+        \) -prune -o -print | sort
+}
+
+songs() {
+    find "$MUSIC_DIR" -name '*.mp3' -print \
+        | sort
+}
+
+albums() {
+    get_albums() {
+        find $MUSIC_DIR -name 'cover.*' \
+            | sed -E 's_^(.*?/)(.*?)(/.*)_IMG:&\t\2_' -- \
+            | sort \
+            | dmenu -p 'Choose album' -l 19 -i -is 350x350 \
+            | sed "s:.*:$MUSIC_DIR/&:"
+    }
+
+    add_and_play() {
+        read directory
+        test -z "$directory" && exit
+        mpc add "$directory" && mpc play
+    }
+
+    get_albums | add_and_play
+
+}
+
+$@
